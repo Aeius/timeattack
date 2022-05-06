@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+     <!--ajax 연결 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+    <script>
+        function write(){
+            $.ajax({
+                type: "POST",
+                url: "/api/write",
+                data: {'title_give' : board_title, 'content_give' : board_content}
+                success: function (response) {
+                    alert(response['msg'])
+                    window.location.reload()
+                }
+            })
+        }
+
+        function logout(){
+            $.removeCookie('mytoken');
+            alert('로그아웃 완료!')
+            window.location.href = '/login'
+        }
+    </script>
+</head>
+<body>
+<section>
+    <article>
+        <h3>게시글 작성</h3>
+        제목<input type="text" id="board_title" maxlength="30"><br>
+        내용<input type="text" id="board_content" maxlength="50"><br>
+        <button type="button" onclick="write()">작성완료</button>
+        <button type="button" onclick="logout()">로그아웃</button>
+    </article>
+    <article>
+        <table>
+            <tr>
+                <td>No.</td>
+                <td>제목</td>
+                <td>내용</td>
+                <td>날짜</td>
+            </tr>
+            <tr>
+                <td>{{board_num}}}</td>
+                <td>{{board_title}}}</td>
+                <td>{{board_content}</td>
+                <td>{{board_date}}}</td>
+            </tr>
+        </table>
+    </article>
+</section>
+</body>
+</html>

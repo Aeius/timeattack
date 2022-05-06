@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!--ajax 연결 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+    <script>
+        function signup() {
+            let email = $('#email').val()
+            let pwd = $('#pwd').val()
+            $.ajax({
+                type: "POST",
+                url: '/api/signup',
+                data: {'email_give': email, 'pwd_give': pwd},
+                success: function (response) {
+                    alert(response['msg'])
+                    window.location.reload()
+                }
+            })
+        }
+
+        function login() {
+            let email = $('#email').val()
+            let pwd = $('#pwd').val()
+            $.ajax({
+                type: "POST",
+                url: '/api/login',
+                data: {'email_give': email, 'pwd_give': pwd},
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        $.cookie('mytoken', response['token'])
+                        alert(response['msg'])
+                        window.location.replace('/')
+                    } else {
+                        alert(response['msg'])
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+<article style="margin: auto; border: 1px solid black; display: flex; flex-direction: column; justify-content: center; width: 500px; height: 300px;">
+    <h1> 회원가입 로그인</h1>
+    이메일 : <input type="text" id="email"><br>
+    패스워드 : <input type="password" id="pwd"><br>
+    <button type="button" onclick="signup()">회원가입</button>
+    <br>
+    <button type="button" onclick="login()">로그인</button>
+</article>
+</body>
+</html>
