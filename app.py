@@ -10,10 +10,10 @@ app = Flask(__name__)
 from pymongo import MongoClient
 
 client = MongoClient(
-    'mongodb+srv://luckyseven:luckyseven@cluster0.2hyld.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
+    '')
 db = client.luckyseven
 
-SECRET_KEY = "SECRET"
+SECRET_KEY = ""
 
 
 # 최초 접속 시 연결되는 홈 페이지 지정
